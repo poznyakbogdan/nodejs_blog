@@ -1,5 +1,11 @@
 var User = require('../models/userModel');
 
+function getUser(req, res, next) {
+  User.find({_id: req.params.id}, function(err, user){
+    if (err) throw err;
+    res.json(user);
+  })
+}
 
 function newUser() {
   return new User({});
@@ -29,6 +35,7 @@ function update(req, res) {
 }
 
 module.exports = {
+  getUser: getUser,
   newUser: newUser,
   create: create,
   deleteUser: deleteUser
